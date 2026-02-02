@@ -1,597 +1,461 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Formulário de Edição Profissional (Rosto Preservado)</title>
-  <meta name="description" content="Questionário rápido para gerar um pedido de edição profissional sem alterar rostos. Copie e cole no seu GPT." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Briefing de Edição — Perguntas Obrigatórias</title>
   <style>
     :root{
-      --bg:#0b0f17;
-      --card:#121a2a;
-      --card2:#0f1626;
-      --text:#e8eefc;
-      --muted:#a9b5d1;
-      --line:#24314e;
-      --ok:#1dd1a1;
-      --warn:#feca57;
-      --bad:#ff6b6b;
-      --btn:#4f7cff;
-      --btn2:#2b48a8;
-      --shadow: 0 18px 60px rgba(0,0,0,.45);
-      --radius:16px;
-      --radius2:12px;
-      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Helvetica Neue", Helvetica, "Apple Color Emoji", "Segoe UI Emoji";
+      --bg:#f7f8fb;
+      --card:#ffffff;
+      --text:#111827;
+      --muted:#6b7280;
+      --border:#e5e7eb;
+      --shadow: 0 8px 24px rgba(17,24,39,.08);
+      --focus: 0 0 0 4px rgba(59,130,246,.18);
+      --primary:#2563eb;
     }
     *{box-sizing:border-box}
     body{
       margin:0;
-      font-family:var(--font);
-      background:
-        radial-gradient(1200px 700px at 10% 10%, rgba(79,124,255,.22), transparent 55%),
-        radial-gradient(900px 600px at 90% 20%, rgba(29,209,161,.16), transparent 50%),
-        radial-gradient(800px 500px at 70% 90%, rgba(254,202,87,.12), transparent 45%),
-        var(--bg);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:var(--bg);
       color:var(--text);
-      line-height:1.35;
+      line-height:1.4;
     }
-    a{color:var(--text)}
-    .wrap{max-width:1100px; margin:0 auto; padding:28px 16px 48px;}
     header{
-      display:flex; gap:18px; align-items:flex-start; justify-content:space-between;
-      padding:18px 18px 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(247,248,251,.85);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid var(--border);
     }
-    .brand{
-      display:flex; gap:12px; align-items:center;
+    .wrap{max-width: 920px; margin: 0 auto; padding: 18px 16px;}
+    .title{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
     }
-    .logo{
-      width:42px; height:42px; border-radius:12px;
-      background: linear-gradient(135deg, rgba(79,124,255,.95), rgba(29,209,161,.85));
-      box-shadow: 0 12px 30px rgba(79,124,255,.22);
+    h1{font-size: 20px; margin:0;}
+    .sub{margin:6px 0 0; color:var(--muted); font-size:14px}
+    .pill{
+      font-size:12px; color:var(--primary);
+      background: rgba(37,99,235,.08);
+      border:1px solid rgba(37,99,235,.18);
+      padding:6px 10px; border-radius:999px; white-space:nowrap;
+      height: fit-content;
     }
-    h1{margin:0; font-size:22px; letter-spacing:.2px;}
-    .sub{margin:6px 0 0; color:var(--muted); font-size:14px; max-width:70ch;}
-    .grid{
-      display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap:16px;
-      margin-top:14px;
-    }
-    @media (max-width: 980px){
-      .grid{grid-template-columns:1fr}
-      header{flex-direction:column}
-    }
+
+    main .wrap{padding-top: 22px; padding-bottom: 36px;}
     .card{
-      background:linear-gradient(180deg, rgba(18,26,42,.95), rgba(15,22,38,.92));
-      border:1px solid rgba(36,49,78,.85);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:16px;
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:16px;
+      box-shadow: var(--shadow);
+      padding: 18px;
     }
-    .card h2{
-      margin:0 0 8px;
-      font-size:16px;
+    .grid{display:grid; gap:12px;}
+    @media (min-width: 860px){
+      .grid{grid-template-columns: 1fr 1fr;}
+      .span2{grid-column: 1 / -1;}
     }
-    .hint{color:var(--muted); font-size:13px; margin:0 0 14px;}
-    .section{
-      border:1px solid rgba(36,49,78,.75);
-      border-radius:var(--radius2);
-      padding:12px;
-      margin:12px 0;
-      background: rgba(10,14,24,.35);
+
+    details{
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:#fff;
+      overflow:hidden;
     }
-    .section-title{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:10px;
-      margin:0 0 8px;
-      font-size:13px;
-      color:var(--muted);
-    }
-    label{
-      display:flex; gap:10px; align-items:flex-start;
-      padding:10px 10px;
-      border-radius:12px;
-      border:1px solid transparent;
+    details[open]{box-shadow: 0 10px 26px rgba(17,24,39,.08);}
+    summary{
+      list-style:none;
       cursor:pointer;
-      user-select:none;
+      padding: 14px 14px;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
     }
-    label:hover{
-      border-color: rgba(79,124,255,.35);
-      background: rgba(79,124,255,.08);
+    summary::-webkit-details-marker{display:none;}
+    .qtitle{
+      display:flex; flex-direction:column; gap:4px;
     }
-    input[type="radio"], input[type="checkbox"]{
-      transform: translateY(2px);
-      accent-color: var(--btn);
+    .qtitle strong{font-size:15px}
+    .qtitle small{color:var(--muted); font-size:12px}
+    .chev{
+      width: 10px; height:10px; flex:0 0 auto;
+      border-right:2px solid #9ca3af; border-bottom:2px solid #9ca3af;
+      transform: rotate(-45deg);
+      transition: transform .2s ease;
+      margin-left: 6px;
     }
-    .row{
+    details[open] .chev{transform: rotate(45deg);}
+    .content{
+      border-top:1px solid var(--border);
+      padding: 14px;
       display:grid;
-      grid-template-columns: 1fr 1fr;
       gap:10px;
     }
-    @media (max-width: 560px){ .row{grid-template-columns:1fr} }
-    .field{
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-      margin-top:10px;
+    .hint{
+      color:var(--muted);
+      font-size:13px;
+      margin:0;
     }
-    .field input[type="text"], .field textarea, .field input[type="url"]{
+    label{font-size:13px; color:#374151; display:block; margin: 0 0 6px;}
+    textarea, input[type="text"], select{
       width:100%;
-      background: rgba(10,14,24,.55);
-      border:1px solid rgba(36,49,78,.9);
-      color:var(--text);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding: 10px 12px;
+      font-size:14px;
+      outline:none;
+      background:#fff;
+    }
+    textarea{min-height: 96px; resize: vertical;}
+    textarea:focus, input[type="text"]:focus, select:focus{box-shadow: var(--focus); border-color:#93c5fd;}
+    .row{display:grid; gap:10px;}
+    @media (min-width: 640px){
+      .row{grid-template-columns: 1fr 1fr;}
+    }
+    .inline{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+    }
+    .radio{
+      display:flex; gap:8px; align-items:center;
+      border:1px solid var(--border);
       border-radius:12px;
       padding:10px 12px;
-      outline:none;
+      cursor:pointer;
+      user-select:none;
+      min-width: 160px;
     }
-    .field textarea{min-height:100px; resize:vertical}
-    .small{font-size:12px; color:var(--muted)}
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid rgba(36,49,78,.85);
-      color:var(--muted);
-      font-size:12px;
-      background: rgba(10,14,24,.35);
+    .radio input{margin:0}
+    .radio:hover{border-color:#cbd5e1}
+    .radio:has(input:focus){box-shadow: var(--focus); border-color:#93c5fd;}
+    .note{
+      background:#f3f4f6;
+      border:1px dashed #d1d5db;
+      border-radius:14px;
+      padding: 12px 14px;
+      font-size:13px;
+      color:#374151;
     }
-    .pill strong{color:var(--text); font-weight:600}
+
     .actions{
-      display:flex; flex-wrap:wrap;
-      gap:10px;
-      margin-top:12px;
-      align-items:center;
+      display:flex; gap:12px; flex-wrap:wrap;
+      margin-top: 14px;
     }
     button{
       border:0;
+      border-radius:12px;
+      padding: 12px 14px;
+      font-size:14px;
       cursor:pointer;
-      border-radius:14px;
-      padding:12px 14px;
-      font-weight:700;
-      letter-spacing:.2px;
-      color:white;
-      background: linear-gradient(135deg, var(--btn), var(--btn2));
-      box-shadow: 0 12px 30px rgba(79,124,255,.22);
     }
-    button.secondary{
-      background: rgba(10,14,24,.55);
-      border:1px solid rgba(36,49,78,.95);
-      color:var(--text);
-      box-shadow:none;
+    .btn-primary{
+      background: var(--primary);
+      color:#fff;
     }
-    button.danger{
-      background: rgba(255,107,107,.18);
-      border:1px solid rgba(255,107,107,.45);
-      color: var(--text);
-      box-shadow:none;
+    .btn-primary:hover{filter: brightness(0.97);}
+    .btn-ghost{
+      background:#fff;
+      border:1px solid var(--border);
+      color:#111827;
     }
-    button:disabled{
-      opacity:.55;
-      cursor:not-allowed;
-    }
-    .status{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      margin-top:10px;
+    .btn-ghost:hover{background:#fafafa;}
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:18px;
+      transform: translateX(-50%);
+      background:#111827;
+      color:#fff;
       padding:10px 12px;
-      border-radius:14px;
-      border:1px solid rgba(36,49,78,.85);
-      background: rgba(10,14,24,.35);
-      color: var(--muted);
+      border-radius:12px;
       font-size:13px;
+      opacity:0;
+      pointer-events:none;
+      transition: opacity .2s ease, transform .2s ease;
     }
-    .status b{color:var(--text)}
-    .ok{border-color: rgba(29,209,161,.55)!important}
-    .warn{border-color: rgba(254,202,87,.55)!important}
-    .bad{border-color: rgba(255,107,107,.55)!important}
-    .out{
-      width:100%;
-      min-height:220px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size:12.5px;
-      line-height:1.35;
-      background: rgba(10,14,24,.55);
-      border:1px solid rgba(36,49,78,.95);
-      color:var(--text);
-      border-radius:14px;
-      padding:12px;
-      outline:none;
-      white-space:pre-wrap;
+    .toast.show{
+      opacity:1;
+      transform: translateX(-50%) translateY(-4px);
     }
     .footer{
       margin-top:14px;
+      color:var(--muted);
       font-size:12px;
-      color:var(--muted);
+      text-align:center;
     }
-    .tag{
-      display:inline-block;
-      margin-left:8px;
-      font-size:11px;
-      padding:3px 8px;
-      border-radius:999px;
-      border:1px solid rgba(36,49,78,.85);
-      background: rgba(10,14,24,.35);
-      color:var(--muted);
-      vertical-align:middle;
+    .required{
+      color:#ef4444;
+      font-weight:600;
+      margin-left:6px;
+      font-size:12px;
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card">
-      <header>
-        <div class="brand">
-          <div class="logo" aria-hidden="true"></div>
-          <div>
-            <h1>Pedido de Edição Profissional <span class="tag">rosto preservado</span></h1>
-            <p class="sub">
-              Responda clicando. No final, gere um texto pronto para copiar e colar no seu GPT.
-              Isso garante integração realista (sombras, perspectiva e luz) <b>sem alterar rostos</b>.
-            </p>
-          </div>
-        </div>
+  <header>
+    <div class="wrap title">
+      <div>
+        <h1>Briefing de Edição — Perguntas Obrigatórias</h1>
+        <p class="sub">Clique em cada pergunta (com <strong>?</strong>) para ver a explicação e preencher. No final, clique em <strong>Copiar respostas</strong>.</p>
+      </div>
+      <div class="pill">Tema claro • Página rolável</div>
+    </div>
+  </header>
 
-        <div class="pill" title="Fluxo recomendado">
-          ✅ <strong>1)</strong> Responder • <strong>2)</strong> Gerar texto • <strong>3)</strong> Copiar • <strong>4)</strong> Colar no chat
-        </div>
-      </header>
+  <main>
+    <div class="wrap">
+      <div class="card">
+        <div class="grid">
 
-      <div class="grid">
-        <!-- FORM -->
-        <section class="card" style="box-shadow:none; background:transparent; border:none; padding:0;">
-          <h2>Questionário</h2>
-          <p class="hint">Escolha as opções. Campos extras aparecem quando necessário.</p>
-
-          <div class="section" id="s1">
-            <div class="section-title">
-              <span><b>1)</b> O que você quer editar?</span>
-              <span class="small">Obrigatório</span>
-            </div>
-            <div class="row">
-              <label><input type="checkbox" name="tipo" value="Fundo/Cenário"> Trocar/ajustar <b>fundo/cenário</b></label>
-              <label><input type="checkbox" name="tipo" value="Objeto"> Adicionar/remover <b>objeto</b></label>
-              <label><input type="checkbox" name="tipo" value="Luz/Cor/Qualidade"> Melhorar <b>luz/cor/qualidade</b></label>
-              <label><input type="checkbox" name="tipo" value="Adicionar pessoa"> <b>Adicionar outra pessoa</b></label>
-            </div>
-            <div class="field">
-              <label style="padding:0; border:none; background:transparent; cursor:default">
-                <span class="small">Se quiser, detalhe aqui (opcional):</span>
-              </label>
-              <input id="detalheTipo" type="text" placeholder="Ex.: trocar para escritório, adicionar notebook, melhorar contraste..." />
-            </div>
-          </div>
-
-          <div class="section" id="s2">
-            <div class="section-title">
-              <span><b>2)</b> Fonte do item (objeto/pessoa/fundo)</span>
-              <span class="small">Obrigatório</span>
-            </div>
-            <label><input type="radio" name="fonte" value="Imaginário (criar do zero)"> Imaginário (criar do zero)</label>
-            <label><input type="radio" name="fonte" value="Da internet (recriar visualmente)"> Da internet (recriar visualmente)</label>
-            <label><input type="radio" name="fonte" value="Tenho foto de referência (vou enviar)"> Tenho foto de referência (vou enviar)</label>
-
-            <div class="field" id="refLinkWrap" style="display:none;">
-              <span class="small">Se for “da internet”, cole um link de referência (opcional):</span>
-              <input id="refLink" type="url" placeholder="https://..." />
-              <span class="small">Obs.: link é só referência visual. Se você tiver a foto do objeto/pessoa, melhor enviar junto no chat.</span>
-            </div>
-          </div>
-
-          <div class="section" id="s3">
-            <div class="section-title">
-              <span><b>3)</b> Envolve rosto?</span>
-              <span class="small">Obrigatório</span>
-            </div>
-            <label><input type="radio" name="rosto" value="Não — nenhum rosto pode ser alterado"> Não — nenhum rosto pode ser alterado</label>
-            <label><input type="radio" name="rosto" value="Sim — explicar exatamente (sem mudar traços)"> Sim — explicar exatamente (sem mudar traços)</label>
-
-            <div class="field" id="rostoDetalheWrap" style="display:none;">
-              <span class="small">Explique com precisão (ex.: “apenas corrigir sombras no rosto, sem alterar traços”):</span>
-              <input id="rostoDetalhe" type="text" placeholder="Descreva aqui..." />
-            </div>
-          </div>
-
-          <div class="section" id="s4">
-            <div class="section-title">
-              <span><b>4)</b> Quantas pessoas já estão na foto?</span>
-              <span class="small">Obrigatório</span>
-            </div>
-            <div class="row">
-              <label><input type="radio" name="qtd" value="1"> 1 pessoa</label>
-              <label><input type="radio" name="qtd" value="2"> 2 pessoas</label>
-              <label><input type="radio" name="qtd" value="3+"> 3 ou mais</label>
-            </div>
-          </div>
-
-          <div class="section" id="s5">
-            <div class="section-title">
-              <span><b>5)</b> Se você vai adicionar outra pessoa</span>
-              <span class="small">Aparece quando necessário</span>
-            </div>
-            <div id="addPessoaWrap" style="display:none;">
-              <label><input type="radio" name="pessoaRef" value="Tenho foto de referência do rosto"> Tenho foto de referência do rosto</label>
-              <label><input type="radio" name="pessoaRef" value="Não tenho — criar pessoa genérica (sem semelhança com ninguém real)"> Não tenho — criar pessoa genérica (sem semelhança com ninguém real)</label>
-              <div class="field">
-                <span class="small">Se genérica, descreva (idade aproximada/estilo/roupa) — opcional:</span>
-                <input id="pessoaDesc" type="text" placeholder="Ex.: homem 30–40, roupa social, aparência genérica..." />
+          <!-- Q1 -->
+          <details class="span2" open>
+            <summary>
+              <div class="qtitle">
+                <strong>1) O que exatamente você deseja alterar, adicionar ou remover na imagem?<span class="required">*</span></strong>
+                <small>Toque para entender o que escrever.</small>
+              </div>
+              <div class="chev" aria-hidden="true"></div>
+            </summary>
+            <div class="content">
+              <p class="hint"><strong>O que é?</strong> Descreva de forma objetiva tudo que deve mudar (fundo, objetos, cenário, limpeza, ajustes gerais). Quanto mais específico, mais “Photoshop realista” fica.</p>
+              <div>
+                <label for="q1">Sua resposta</label>
+                <textarea id="q1" placeholder="Ex.: Trocar o fundo por um escritório moderno; remover objetos atrás; ajustar luz global para ficar mais clara."></textarea>
               </div>
             </div>
-            <div id="addPessoaOff" class="small" style="color:var(--muted);">
-              Marque “Adicionar outra pessoa” em (1) para liberar esta seção.
+          </details>
+
+          <!-- Q2 -->
+          <details class="span2">
+            <summary>
+              <div class="qtitle">
+                <strong>2) Alguma dessas alterações envolve o rosto?<span class="required">*</span></strong>
+                <small>Toque para ver o que é permitido aqui.</small>
+              </div>
+              <div class="chev" aria-hidden="true"></div>
+            </summary>
+            <div class="content">
+              <p class="hint"><strong>O que é?</strong> Aqui você confirma se o rosto entra na edição. Pelo seu prompt, o rosto não pode ser reconstruído nem “embelezado”. Se você marcar “SIM”, descreva exatamente o que seria feito (idealmente só ajustes globais de luz/cor, sem mexer em textura ou traços).</p>
+              <div class="row">
+                <div>
+                  <label>Resposta (SIM/NÃO)</label>
+                  <select id="q2_select" aria-label="Envolve o rosto?">
+                    <option value="" selected>Selecione...</option>
+                    <option value="NÃO">NÃO</option>
+                    <option value="SIM">SIM</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="q2">Se SIM, descreva exatamente</label>
+                  <input id="q2" type="text" placeholder="Ex.: Somente ajuste global de luz, sem tocar na pele/traços." />
+                </div>
+              </div>
+              <div class="note">
+                Dica rápida: evite termos como “melhorar”, “embelezar”, “suavizar pele”. Prefira “ajuste global de exposição/temperatura” e deixe claro “sem mexer em textura”.
+              </div>
             </div>
-          </div>
+          </details>
 
-          <div class="section" id="s6">
-            <div class="section-title">
-              <span><b>6)</b> Instruções detalhadas da edição</span>
-              <span class="small">Obrigatório</span>
+          <!-- Q3 -->
+          <details>
+            <summary>
+              <div class="qtitle">
+                <strong>3) Confirma que o rosto deve permanecer exatamente igual ao original? (SIM ou NÃO)<span class="required">*</span></strong>
+                <small>Toque para entender a trava principal.</small>
+              </div>
+              <div class="chev" aria-hidden="true"></div>
+            </summary>
+            <div class="content">
+              <p class="hint"><strong>O que é?</strong> Essa é a confirmação obrigatória para impedir qualquer alteração de identidade facial (traços, proporções, idade, expressão, textura).</p>
+              <div class="inline" role="group" aria-label="Confirmação do rosto">
+                <label class="radio"><input type="radio" name="q3" value="SIM"> SIM</label>
+                <label class="radio"><input type="radio" name="q3" value="NÃO"> NÃO</label>
+              </div>
             </div>
-            <div class="field">
-              <textarea id="instr" placeholder="Ex.: Trocar fundo para um escritório moderno. Adicionar notebook na mesa. Ajustar iluminação geral para combinar. Não alterar nenhum rosto."></textarea>
-              <span class="small">Dica: cite o local do objeto (ex.: “na mão direita”, “em cima da mesa”, “atrás da pessoa”).</span>
+          </details>
+
+          <!-- Q4 -->
+          <details>
+            <summary>
+              <div class="qtitle">
+                <strong>4) Há mais de uma pessoa na imagem?<span class="required">*</span></strong>
+                <small>Toque para ver o que confirmar.</small>
+              </div>
+              <div class="chev" aria-hidden="true"></div>
+            </summary>
+            <div class="content">
+              <p class="hint"><strong>O que é?</strong> Se houver mais pessoas, você confirma que nenhum rosto pode ser alterado. Se quiser, detalhe quantas pessoas.</p>
+              <div class="row">
+                <div>
+                  <label>Resposta (SIM/NÃO)</label>
+                  <select id="q4_select" aria-label="Há mais de uma pessoa?">
+                    <option value="" selected>Selecione...</option>
+                    <option value="NÃO">NÃO</option>
+                    <option value="SIM">SIM</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="q4">Detalhe (opcional)</label>
+                  <input id="q4" type="text" placeholder="Ex.: Sim, 2 pessoas. Nenhum rosto pode ser alterado." />
+                </div>
+              </div>
             </div>
-          </div>
+          </details>
 
-          <div class="section" id="s7">
-            <div class="section-title">
-              <span><b>7)</b> Confirmação de segurança</span>
-              <span class="small">Obrigatório</span>
+          <!-- Q5 -->
+          <details class="span2">
+            <summary>
+              <div class="qtitle">
+                <strong>5) Posso prosseguir apenas após sua confirmação final?<span class="required">*</span></strong>
+                <small>Toque para ver como responder.</small>
+              </div>
+              <div class="chev" aria-hidden="true"></div>
+            </summary>
+            <div class="content">
+              <p class="hint"><strong>O que é?</strong> Última autorização. Normalmente, basta responder “SIM, pode prosseguir”.</p>
+              <div class="inline" role="group" aria-label="Autorização final">
+                <label class="radio"><input type="radio" name="q5" value="SIM, pode prosseguir."> SIM, pode prosseguir</label>
+                <label class="radio"><input type="radio" name="q5" value="NÃO."> NÃO</label>
+              </div>
             </div>
-            <label><input type="checkbox" id="confirmo"> Confirmo que <b>nenhum rosto</b> pode ser alterado (identidade 100% preservada).</label>
-            <label><input type="checkbox" id="confirmo2"> Confirmo que a integração deve ser <b>realista</b> (sombras, perspectiva, escala e luz coerentes).</label>
+          </details>
+
+          <div class="span2 actions">
+            <button class="btn-primary" id="copyBtn" type="button">Copiar respostas</button>
+            <button class="btn-ghost" id="clearBtn" type="button">Limpar</button>
+            <button class="btn-ghost" id="expandBtn" type="button">Abrir tudo</button>
+            <button class="btn-ghost" id="collapseBtn" type="button">Fechar tudo</button>
           </div>
 
-          <div class="actions">
-            <button id="btnGerar" type="button">Gerar texto para colar no GPT</button>
-            <button id="btnCopiar" type="button" class="secondary" disabled>📋 Copiar</button>
-            <button id="btnLimpar" type="button" class="danger">Limpar</button>
+          <div class="span2">
+            <label for="preview">Prévia (o que será copiado)</label>
+            <textarea id="preview" readonly placeholder="Preencha as perguntas acima e clique em 'Copiar respostas'."></textarea>
+            <div class="footer">Tudo funciona offline (HTML único). Copia no formato pronto para colar no chat.</div>
           </div>
 
-          <div id="status" class="status warn" role="status" aria-live="polite">
-            <div>⚠️</div>
-            <div>
-              <b>Preencha as obrigatórias</b> e confirme as duas caixas no final para liberar a cópia.
-            </div>
-          </div>
-
-          <div class="footer">
-            <b>Como usar:</b> 1) Gere o texto 2) Copie 3) Cole no chat do seu GPT junto com as fotos (principal + referências).
-          </div>
-        </section>
-
-        <!-- OUTPUT -->
-        <aside class="card">
-          <h2>Texto pronto para colar no GPT</h2>
-          <p class="hint">Depois de gerar, copie e cole na conversa com o seu GPT. Envie também as imagens necessárias.</p>
-          <textarea id="out" class="out" readonly placeholder="Aqui vai aparecer o texto final..."></textarea>
-
-          <div class="status" style="margin-top:12px;">
-            <div>💡</div>
-            <div>
-              <b>Dica rápida:</b> se você tiver foto do objeto/pessoa, envie junto no chat.
-              Isso aumenta muito o realismo e reduz invenções.
-            </div>
-          </div>
-        </aside>
+        </div>
       </div>
     </div>
-  </div>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">Copiado!</div>
 
   <script>
-    // Helpers
-    const $ = (sel) => document.querySelector(sel);
-    const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+    const $ = (id) => document.getElementById(id);
 
-    const btnGerar = $("#btnGerar");
-    const btnCopiar = $("#btnCopiar");
-    const btnLimpar = $("#btnLimpar");
-    const statusBox = $("#status");
-
-    const out = $("#out");
-    const detalheTipo = $("#detalheTipo");
-    const instr = $("#instr");
-
-    const refLinkWrap = $("#refLinkWrap");
-    const refLink = $("#refLink");
-
-    const rostoDetalheWrap = $("#rostoDetalheWrap");
-    const rostoDetalhe = $("#rostoDetalhe");
-
-    const confirmo = $("#confirmo");
-    const confirmo2 = $("#confirmo2");
-
-    const addPessoaWrap = $("#addPessoaWrap");
-    const addPessoaOff = $("#addPessoaOff");
-    const pessoaDesc = $("#pessoaDesc");
-
-    function getCheckedValues(name){
-      return $$(`input[name="${name}"]:checked`).map(i => i.value);
-    }
     function getRadioValue(name){
-      const el = $(`input[name="${name}"]:checked`);
+      const el = document.querySelector(`input[name="${name}"]:checked`);
       return el ? el.value : "";
     }
 
-    function hasTipoAddPessoa(){
-      return getCheckedValues("tipo").includes("Adicionar pessoa");
+    function buildText(){
+      const q1 = $("q1").value.trim();
+      const q2s = $("q2_select").value.trim();
+      const q2 = $("q2").value.trim();
+      const q3 = getRadioValue("q3");
+      const q4s = $("q4_select").value.trim();
+      const q4 = $("q4").value.trim();
+      const q5 = getRadioValue("q5");
+
+      const lines = [];
+      lines.push("1) O que exatamente você deseja alterar, adicionar ou remover na imagem?");
+      lines.push(q1 ? q1 : "(não respondido)");
+      lines.push("");
+      lines.push("2) Alguma dessas alterações envolve o rosto?");
+      lines.push(q2s ? q2s : "(não respondido)");
+      if ((q2s || "").toUpperCase() === "SIM"){
+        lines.push(q2 ? `Detalhe: ${q2}` : "Detalhe: (não informado)");
+      }
+      lines.push("");
+      lines.push("3) Confirma que o rosto deve permanecer exatamente igual ao original? (SIM ou NÃO)");
+      lines.push(q3 ? q3 : "(não respondido)");
+      lines.push("");
+      lines.push("4) Há mais de uma pessoa na imagem?");
+      lines.push(q4s ? q4s : "(não respondido)");
+      if (q4) lines.push(`Detalhe: ${q4}`);
+      lines.push("");
+      lines.push("5) Posso prosseguir apenas após sua confirmação final?");
+      lines.push(q5 ? q5 : "(não respondido)");
+
+      return lines.join("\\n");
     }
 
-    function updateConditionalUI(){
-      // Fonte "internet" mostra campo link (opcional)
-      const fonte = getRadioValue("fonte");
-      refLinkWrap.style.display = (fonte.includes("internet")) ? "block" : "none";
-
-      // Rosto "sim" mostra detalhe
-      const rosto = getRadioValue("rosto");
-      rostoDetalheWrap.style.display = (rosto.startsWith("Sim")) ? "block" : "none";
-
-      // Seção adicionar pessoa aparece só quando marcado
-      if(hasTipoAddPessoa()){
-        addPessoaWrap.style.display = "block";
-        addPessoaOff.style.display = "none";
-      } else {
-        addPessoaWrap.style.display = "none";
-        addPessoaOff.style.display = "block";
-        $$('input[name="pessoaRef"]').forEach(r => r.checked = false);
-        pessoaDesc.value = "";
-      }
-
-      validate();
+    function updatePreview(){
+      $("preview").value = buildText();
     }
 
-    // Validate required fields
-    function validate(){
-      const tipos = getCheckedValues("tipo");
-      const fonte = getRadioValue("fonte");
-      const rosto = getRadioValue("rosto");
-      const qtd = getRadioValue("qtd");
-      const rostoOk = !!rosto && (!rosto.startsWith("Sim") || (rostoDetalhe.value.trim().length >= 5));
-      const addPessoaOk = !hasTipoAddPessoa() || !!getRadioValue("pessoaRef");
-      const instrOk = instr.value.trim().length >= 10;
-
-      const requiredOk = tipos.length > 0 && !!fonte && !!rosto && !!qtd && rostoOk && addPessoaOk && instrOk;
-      const confirmOk = confirmo.checked && confirmo2.checked;
-
-      btnGerar.disabled = !requiredOk;
-      btnCopiar.disabled = !(requiredOk && confirmOk && out.value.trim().length > 0);
-
-      // Status
-      let cls = "warn";
-      let icon = "⚠️";
-      let msg = "Preencha as obrigatórias e confirme as duas caixas no final para liberar a cópia.";
-
-      if(requiredOk && !confirmOk){
-        cls = "warn";
-        icon = "🟡";
-        msg = "Tudo preenchido. Agora marque as duas confirmações de segurança para liberar o botão Copiar.";
-      }
-      if(requiredOk && confirmOk && out.value.trim().length > 0){
-        cls = "ok";
-        icon = "✅";
-        msg = "Pronto! Você pode copiar e colar no seu GPT (junto com as fotos).";
-      }
-      if(!requiredOk){
-        // avisos específicos
-        const issues = [];
-        if(tipos.length === 0) issues.push("Selecione o que deseja editar");
-        if(!fonte) issues.push("Escolha a fonte do item");
-        if(!rosto) issues.push("Informe se envolve rosto");
-        if(rosto && rosto.startsWith("Sim") && rostoDetalhe.value.trim().length < 5) issues.push("Descreva o detalhe do rosto (mín. 5 caracteres)");
-        if(!qtd) issues.push("Informe quantas pessoas já estão na foto");
-        if(hasTipoAddPessoa() && !getRadioValue("pessoaRef")) issues.push("Escolha a referência da pessoa adicionada");
-        if(!instrOk) issues.push("Escreva instruções (mín. 10 caracteres)");
-        if(issues.length){
-          icon = "⚠️";
-          msg = "Falta: " + issues.join(" • ");
-        }
-      }
-
-      statusBox.classList.remove("ok","warn","bad");
-      statusBox.classList.add(cls);
-      statusBox.innerHTML = `<div>${icon}</div><div><b>Status:</b> ${msg}</div>`;
+    function toast(msg){
+      const t = $("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => t.classList.remove("show"), 1400);
     }
 
-    function buildOutput(){
-      const tipos = getCheckedValues("tipo");
-      const fonte = getRadioValue("fonte");
-      const rosto = getRadioValue("rosto");
-      const qtd = getRadioValue("qtd");
-      const detalhe = detalheTipo.value.trim();
-      const refUrl = refLink.value.trim();
-      const rostoDet = rostoDetalhe.value.trim();
-      const pessoaRef = getRadioValue("pessoaRef");
-      const pessoaDet = pessoaDesc.value.trim();
-      const textoInstr = instr.value.trim();
+    async function copy(){
+      updatePreview();
+      const text = $("preview").value;
 
-      const linhas = [];
-      linhas.push("📌 PEDIDO DE EDIÇÃO (copiado do formulário)");
-      linhas.push("");
-      linhas.push("🎯 OBJETIVO");
-      linhas.push(`- Tipo de edição: ${tipos.join(", ")}${detalhe ? ` (${detalhe})` : ""}`);
-      linhas.push(`- Fonte do item: ${fonte}${refUrl ? ` | Link referência: ${refUrl}` : ""}`);
-      linhas.push("");
-      linhas.push("👤 ROSTOS / IDENTIDADE");
-      linhas.push(`- Envolve rosto: ${rosto}`);
-      if(rosto.startsWith("Sim")) linhas.push(`- Detalhe do rosto (sem mudar traços): ${rostoDet}`);
-      linhas.push(`- Pessoas na foto original: ${qtd}`);
-      if(hasTipoAddPessoa()){
-        linhas.push("");
-        linhas.push("➕ ADICIONAR PESSOA");
-        linhas.push(`- Referência: ${pessoaRef}`);
-        if(pessoaDet) linhas.push(`- Descrição extra: ${pessoaDet}`);
-      }
-      linhas.push("");
-      linhas.push("🛠️ INSTRUÇÕES DETALHADAS");
-      linhas.push(textoInstr);
-      linhas.push("");
-      linhas.push("✅ REGRAS OBRIGATÓRIAS (NÃO NEGOCIÁVEIS)");
-      linhas.push("- Preservar 100% os rostos originais (identidade, traços, expressão, idade e proporções).");
-      linhas.push("- Não reconstruir/reimaginar/embelezar/suavizar rostos.");
-      linhas.push("- Integrar objetos/fundo/pessoas com sombras coerentes, perspectiva correta, escala proporcional e iluminação compatível.");
-      linhas.push("- Resultado final realista, com acabamento profissional estilo Photoshop.");
-      linhas.push("");
-      linhas.push("CONFIRMO: nenhum rosto pode ser alterado.");
+      // validação leve (mínimo)
+      const missing = [];
+      if (!$("q1").value.trim()) missing.push("Q1");
+      if (!$("q2_select").value.trim()) missing.push("Q2");
+      if (!getRadioValue("q3")) missing.push("Q3");
+      if (!$("q4_select").value.trim()) missing.push("Q4");
+      if (!getRadioValue("q5")) missing.push("Q5");
 
-      out.value = linhas.join("\n");
-      validate();
-    }
-
-    async function copyOutput(){
-      const text = out.value.trim();
-      if(!text) return;
       try{
         await navigator.clipboard.writeText(text);
-        statusBox.classList.remove("warn","bad");
-        statusBox.classList.add("ok");
-        statusBox.innerHTML = `<div>✅</div><div><b>Copiado!</b> Agora cole no chat do seu GPT e envie as fotos.</div>`;
+        if (missing.length){
+          toast(`Copiado! (faltando: ${missing.join(", ")})`);
+        } else {
+          toast("Copiado!");
+        }
       }catch(e){
         // fallback
-        out.focus();
-        out.select();
-        document.execCommand("copy");
-        statusBox.classList.remove("warn","bad");
-        statusBox.classList.add("ok");
-        statusBox.innerHTML = `<div>✅</div><div><b>Copiado!</b> (modo compatibilidade). Agora cole no chat do seu GPT.</div>`;
+        $("preview").focus();
+        $("preview").select();
+        const ok = document.execCommand("copy");
+        toast(ok ? "Copiado!" : "Não foi possível copiar automaticamente.");
       }
     }
 
     function clearAll(){
-      $$('input[type="checkbox"][name="tipo"]').forEach(c => c.checked = false);
-      $$('input[type="radio"]').forEach(r => r.checked = false);
-      detalheTipo.value = "";
-      refLink.value = "";
-      rostoDetalhe.value = "";
-      instr.value = "";
-      confirmo.checked = false;
-      confirmo2.checked = false;
-      pessoaDesc.value = "";
-      out.value = "";
-      updateConditionalUI();
-      validate();
+      $("q1").value = "";
+      $("q2_select").value = "";
+      $("q2").value = "";
+      $("q4_select").value = "";
+      $("q4").value = "";
+      document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+      updatePreview();
+      toast("Limpo!");
     }
 
-    // Event bindings
-    $$('input[name="tipo"]').forEach(el => el.addEventListener("change", updateConditionalUI));
-    $$('input[name="fonte"]').forEach(el => el.addEventListener("change", updateConditionalUI));
-    $$('input[name="rosto"]').forEach(el => el.addEventListener("change", updateConditionalUI));
-    $$('input[name="qtd"]').forEach(el => el.addEventListener("change", updateConditionalUI));
-    $$('input[name="pessoaRef"]').forEach(el => el.addEventListener("change", updateConditionalUI));
+    function setAllDetails(open){
+      document.querySelectorAll("details").forEach(d => d.open = open);
+    }
 
-    [detalheTipo, refLink, rostoDetalhe, instr, pessoaDesc].forEach(el => {
-      el.addEventListener("input", validate);
-    });
+    // Eventos
+    ["q1","q2_select","q2","q4_select","q4"].forEach(id => $(id).addEventListener("input", updatePreview));
+    document.querySelectorAll('input[type="radio"]').forEach(r => r.addEventListener("change", updatePreview));
 
-    confirmo.addEventListener("change", validate);
-    confirmo2.addEventListener("change", validate);
+    $("copyBtn").addEventListener("click", copy);
+    $("clearBtn").addEventListener("click", clearAll);
+    $("expandBtn").addEventListener("click", () => setAllDetails(true));
+    $("collapseBtn").addEventListener("click", () => setAllDetails(false));
 
-    btnGerar.addEventListener("click", buildOutput);
-    btnCopiar.addEventListener("click", copyOutput);
-    btnLimpar.addEventListener("click", clearAll);
-
-    // Init
-    updateConditionalUI();
-    validate();
+    // UX: desabilita/ativa campo de detalhe da Q2
+    function toggleQ2Detail(){
+      const isSim = ($("q2_select").value || "").toUpperCase() === "SIM";
+      $("q2").disabled = !isSim;
+      $("q2").style.opacity = isSim ? "1" : ".55";
+      if (!isSim) $("q2").value = "";
+      updatePreview();
+    }
+    $("q2_select").addEventListener("change", toggleQ2Detail);
+    toggleQ2Detail();
+    updatePreview();
   </script>
 </body>
 </html>
